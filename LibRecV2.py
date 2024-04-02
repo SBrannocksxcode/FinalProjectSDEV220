@@ -1,0 +1,133 @@
+import tkinter as tk  # Import the tkinter library as tk for creating GUI
+from tkinter import ttk  # Import ttk module for themed tkinter widgets
+from tkinter import messagebox  # Import messagebox module for displaying message boxes
+import random  # Import random module for generating random numbers
+
+# Dictionary mapping genres to books and authors
+genre_books = {
+    "Classic": {
+        "To Kill a Mockingbird": "Harper Lee",
+        "1984": "George Orwell",
+        "The Catcher in the Rye": "J.D. Salinger",
+        "The Great Gatsby": "F. Scott Fitzgerald",
+        "Pride and Prejudice": "Jane Austen",
+        "A Tale of Two Cities": "Charles Dickens"
+    },
+    "Fantasy": {
+        "Harry Potter and the Sorcerer's Stone": "J.K. Rowling",
+        "The Hobbit": "J.R.R. Tolkien",
+        "The Chronicles of Narnia": "C.S. Lewis"
+    },
+    "Mystery": {
+        "The Da Vinci Code": "Dan Brown",
+        "The Girl with the Dragon Tattoo": "Stieg Larsson",
+        "Angels & Demons": "Dan Brown",
+        "The Girl on the Train": "Paula Hawkins"
+    },
+    "Romance": {
+        "Gone with the Wind": "Margaret Mitchell",
+        "Pride and Prejudice": "Jane Austen",
+        "The Notebook": "Nicholas Sparks"
+    },
+    "Science Fiction": {
+        "Dune": "Frank Herbert",
+        "The War of the Worlds": "H.G. Wells",
+        "Brave New World": "Aldous Huxley",
+        "Neuromancer": "William Gibson",
+        "The Martian": "Andy Weir",
+        "Foundation": "Isaac Asimov",
+        "Ender's Game": "Orson Scott Card",
+        "The Hitchhiker's Guide to the Galaxy": "Douglas Adams",
+        "Snow Crash": "Neal Stephenson",
+        "Hyperion": "Dan Simmons"
+    },
+    "Thriller": {
+        "The Girl with the Dragon Tattoo": "Stieg Larsson",
+        "The Da Vinci Code": "Dan Brown",
+        "The Silence of the Lambs": "Thomas Harris",
+        "Gone Girl": "Gillian Flynn",
+        "The Girl on the Train": "Paula Hawkins",
+        "The Bourne Identity": "Robert Ludlum",
+        "The Shining": "Stephen King",
+        "Jurassic Park": "Michael Crichton",
+        "The Hunt for Red October": "Tom Clancy",
+        "Misery": "Stephen King"
+    }
+}
+
+# Function to recommend books based on selected genres
+def recommend_books():
+    # Get selected genres
+    selected_genres = [genre_var1.get(), genre_var2.get(), genre_var3.get()]
+    
+    # Filter books based on selected genres
+    filtered_books = [(title, author) for genre in selected_genres for title, author in genre_books.get(genre, {}).items()]
+    
+    # If no books match genres
+    if not filtered_books:
+        messagebox.showinfo("Recommended Books", "No books match the selected genres.")
+    else:
+        # Randomly select 3 unique books
+        recommendations = []
+        while len(recommendations) < 3:
+            book = random.choice(filtered_books)
+            if book not in recommendations:
+                recommendations.append(book)
+        # Display recommendations in a message box
+        recommendation_text = "\n".join([f"{title} by {author}" for title, author in recommendations])
+        messagebox.showinfo("Recommended Books", recommendation_text)
+
+# Create main window
+root = tk.Tk()  # Create root window
+root.title("Book Recommendation System")  # Set title of the window
+
+# Load the background image
+bg_image = tk.PhotoImage(file=r"C:\Users\steve\OneDrive\Desktop\SDEV\LibRecV2\librarybooks.png")  # Change "background.png" to your background image file
+root.geometry(f"{bg_image.width()}x{bg_image.height()}")  # Set window size based on image dimensions
+
+# Create a canvas to place the background image
+canvas = tk.Canvas(root, width=bg_image.width(), height=bg_image.height())  # Create canvas with dimensions
+canvas.pack(fill="both", expand=True)  # Expand canvas to fill the window
+canvas.create_image(0, 0, anchor="nw", image=bg_image)  # Place background image on canvas
+
+# Draw text on the canvas
+canvas.create_text(bg_image.width() / 2, bg_image.height() - 50, text="BOONE COUNTY LIBRARY", fill="white", font=("Arial", 24, "bold"), anchor="s")
+
+# Create genre selection frame
+genre_frame = ttk.Frame(root, style="Dark.TFrame")  # Create a frame for genre selection
+genre_frame.place(relx=0.5, rely=0.5, anchor="center")  # Place the frame in the center of the window
+
+# Create genre drop-down menus
+genre_var1 = tk.StringVar()  # Variable to store selection for genre 1
+genre_var2 = tk.StringVar()  # Variable to store selection for genre 2
+genre_var3 = tk.StringVar()  # Variable to store selection for genre 3
+
+genre_label1 = ttk.Label(genre_frame, text="Genre 1:", style="White.TLabel")  # Label for genre 1
+genre_label1.grid(row=0, column=0, padx=5, pady=5, sticky="e")  # Grid placement for label
+genre_menu1 = ttk.Combobox(genre_frame, textvariable=genre_var1, values=list(genre_books.keys()), style="Red.TCombobox")  # Dropdown menu for genre 1
+genre_menu1.grid(row=0, column=1, padx=5, pady=5)  # Grid placement for dropdown menu
+
+genre_label2 = ttk.Label(genre_frame, text="Genre 2:", style="White.TLabel")  # Label for genre 2
+genre_label2.grid(row=1, column=0, padx=5, pady=5, sticky="e")  # Grid placement for label
+genre_menu2 = ttk.Combobox(genre_frame, textvariable=genre_var2, values=list(genre_books.keys()), style="Red.TCombobox")  # Dropdown menu for genre 2
+genre_menu2.grid(row=1, column=1, padx=5, pady=5)  # Grid placement for dropdown menu
+
+genre_label3 = ttk.Label(genre_frame, text="Genre 3:", style="White.TLabel")  # Label for genre 3
+genre_label3.grid(row=2, column=0, padx=5, pady=5, sticky="e")  # Grid placement for label
+genre_menu3 = ttk.Combobox(genre_frame, textvariable=genre_var3, values=list(genre_books.keys()), style="Red.TCombobox")  # Dropdown menu for genre 3
+genre_menu3.grid(row=2, column=1, padx=5, pady=5)  # Grid placement for dropdown menu
+
+# Create recommend button
+recommend_button = ttk.Button(root, text="Recommend Books", command=recommend_books, style="Red.TButton")  # Button to recommend books
+recommend_button.place(relx=0.5, rely=0.9, anchor="center")  # Place the button in the center of the window
+
+# Set style for widgets
+style = ttk.Style()  # Create a style object
+
+style.configure("Dark.TFrame", background="black")  # Configure style for frame
+style.configure("White.TLabel", foreground="white", background="black")  # Configure style for label
+style.configure("Red.TCombobox", fieldbackground="red", foreground="black")  # Configure style for combobox
+style.configure("Red.TButton", foreground="black", background="red", font=('Arial', 10, 'bold'))  # Configure style for button
+
+# Run the application
+root.mainloop()
