@@ -19,7 +19,7 @@ Files:
 Usage:
 
     Ensure you have Python installed on your system.
-    Run the book_recommendation_gui.py script.
+    Run the  LibRecV2.py script.
     Select up to three genres from the dropdown menus.
     Click on the "Recommend Books" button to get recommendations.
 
