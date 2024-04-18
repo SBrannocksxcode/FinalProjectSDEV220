@@ -39,6 +39,9 @@ Note:
     This program assumes that users have basic knowledge of Python and Tkinter library to understand and customize the code.
     Ensure to provide appropriate file paths if the directory structure is changed or if using different images.
 
+
+Vers3-Vers4. Code was updated in version 4 to add a check out and return function for the books.
+
 Author:
 [Steven Brannock/Kayla Dawn Allinger/Adefemi Adegite/Zachary Martin Bergman/Seneiya Cooke]
 
