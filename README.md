@@ -41,6 +41,8 @@ Note:
 
 
 Vers3-Vers4. Code was updated in version 4 to add a check out and return function for the books.
+vers6. code was updated to fix bugs and easier to input book titles.
+vers7. Fixed bugs in check in check out function. (before fix it was allowing your to check in books that werent checked out.)
 
 Author:
 [Steven Brannock/Kayla Dawn Allinger/Adefemi Adegite/Zachary Martin Bergman/Seneiya Cooke]
